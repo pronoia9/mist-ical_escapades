@@ -47,8 +47,8 @@ const Container = styled.header`
 `;
 
 const Wrapper = styled.nav`
-  /* max-width: 1400px; */
-  padding: 0 2rem;
+  max-width: 1400px;
+  /* padding: 0 2rem; */
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
