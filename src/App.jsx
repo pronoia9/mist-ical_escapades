@@ -24,8 +24,6 @@ export default function App() {
       <ThemeProvider theme={isDarkMode ? dark : light}>
         <GlobalStyles />
         <Navbar />
-
-        <button onClick={toggleTheme}>Toggle Theme</button>
         <Routes>
           <Route path='/contact' element={<ContactPage />} />
           <Route exact path='/' element={<HomePage />} />
