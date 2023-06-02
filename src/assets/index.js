@@ -23,28 +23,33 @@ import cloudsDark from './clouds-moon.svg';
 import cloudsLight from './clouds-sun.svg';
 import clouds from './clouds.svg';
 
-export const parallaxImages = [
-  { title: 'background', image: background },
-  { title: 'blackShadow', image: blackShadow },
-  { title: 'fog1', image: fog1 },
-  { title: 'fog2', image: fog2 },
-  { title: 'fog3', image: fog3 },
-  { title: 'fog4', image: fog4 },
-  { title: 'fog5', image: fog5 },
-  { title: 'fog6', image: fog6 },
-  { title: 'fog7', image: fog7 },
-  { title: 'logo', image: logo },
-  { title: 'mountain1', image: mountain1 },
-  { title: 'mountain2', image: mountain2 },
-  { title: 'mountain3', image: mountain3 },
-  { title: 'mountain4', image: mountain4 },
-  { title: 'mountain5', image: mountain5 },
-  { title: 'mountain6', image: mountain6 },
-  { title: 'mountain7', image: mountain7 },
-  { title: 'mountain8', image: mountain8 },
-  { title: 'mountain9', image: mountain9 },
-  { title: 'mountain10', image: mountain10 },
-  { title: 'sunRays', image: sunRays },
-];
+const parallaxImages = {
+  bottom: [
+    { title: 'background', image: background },
+    { title: 'fog_7', image: fog7 },
+    { title: 'mountain_10', image: mountain10 },
+    { title: 'fog_6', image: fog6 },
+    { title: 'mountain_9', image: mountain9 },
+    { title: 'mountain_8', image: mountain8 },
+    { title: 'fog_5', image: fog5 },
+    { title: 'mountain_7', image: mountain7 },
+  ],
+  top: [
+    { title: 'fog_4', image: fog4 },
+    { title: 'mountain_6', image: mountain6 },
+    { title: 'mountain_5', image: mountain5 },
+    { title: 'fog_3', image: fog3 },
+    { title: 'mountain_4', image: mountain4 },
+    { title: 'mountain_3', image: mountain3 },
+    { title: 'fog_2', image: fog2 },
+    { title: 'mountain_2', image: mountain2 },
+    { title: 'mountain_1', image: mountain1 },
+    { title: 'sun_rays', image: sunRays },
+    { title: 'black_shadow', image: blackShadow },
+    { title: 'fog_1', image: fog1 },
+  ],
+};
 
-export { cloudsDark, cloudsLight, clouds };
+const themeButton = { light: cloudsLight, dark: cloudsDark };
+
+export { logo, parallaxImages, themeButton, clouds };
