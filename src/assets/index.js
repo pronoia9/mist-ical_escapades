@@ -35,8 +35,8 @@ const parallaxImages = {
     { title: 'mountain-7', image: mountain7, parallax: true },
   ],
   top: [
-    { title: 'fog-4', image: fog4, parallax: true },
     { title: 'mountain-6', image: mountain6, parallax: true },
+    { title: 'fog-4', image: fog4, parallax: true },
     { title: 'mountain-5', image: mountain5, parallax: true },
     { title: 'fog-3', image: fog3, parallax: true },
     { title: 'mountain-4', image: mountain4, parallax: true },
