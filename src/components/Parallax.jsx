@@ -177,8 +177,8 @@ const Image = styled.img`
 
   &.fog-3 {
     position: absolute;
-    top: calc(50% + 171px);
-    left: calc(50% + 29px);
+    top: calc(50% - 171px);
+    left: calc(50% - 29px);
     width: 449px;
     transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
@@ -271,9 +271,9 @@ const Image = styled.img`
 
   &.fog-1 {
     position: absolute;
-    top: calc(50% + 100px);
-    left: calc(50% + 300px);
-    width: 1900px;
+    top: calc(100% - 355px);
+    left: 50%;
+    width: 1600px;
     transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 2;
