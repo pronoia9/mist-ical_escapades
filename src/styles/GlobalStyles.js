@@ -14,6 +14,4 @@ export const GlobalStyles = createGlobalStyle`
     background-color: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
   }
-
-  /* Additional global styles can be added here */
 `;
