@@ -19,6 +19,9 @@ import mountain8 from './mountain_8.png';
 import mountain9 from './mountain_9.png';
 import mountain10 from './mountain_10.png';
 import sunRays from './sun_rays.png';
+import cloudsDark from './clouds-moon.svg';
+import cloudsLight from './clouds-sun.svg';
+import clouds from './clouds.svg';
 
 export {
   background,
@@ -42,4 +45,7 @@ export {
   mountain9,
   mountain10,
   sunRays,
+  cloudsDark,
+  cloudsLight,
+  clouds,
 };
