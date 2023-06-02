@@ -30,6 +30,7 @@ export default function Parallax() {
 }
 
 const Container = styled.main`
+  pointer-events: none;
   position: relative;
   height: 100vh;
   width: 100vw;
@@ -47,13 +48,16 @@ const Container = styled.main`
 `;
 
 const Image = styled.img`
+  &.parallax {
+    transform: translate(-50%, -50%);
+  }
+
   /**************************  BOTTOM IMAGES  *************************/
   &.bg-img {
     position: absolute;
     top: calc(50% - 390px);
     left: calc(50% + 10px);
     width: 2800px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* width: 2800px;
     top: calc(50% - 390px);
@@ -66,7 +70,6 @@ const Image = styled.img`
     top: calc(50% - 100px);
     left: calc(50% + 300px);
     width: 1900px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
   }
 
@@ -75,7 +78,6 @@ const Image = styled.img`
     top: calc(50% + 69px);
     left: calc(50% + 230px);
     width: 892px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 3; */
     /* top: calc(50% + 69px);
@@ -88,7 +90,6 @@ const Image = styled.img`
     top: calc(50% + 85px);
     left: calc(50% + 10px);
     width: 1610px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 16; */
     /* top: calc(50% + 177px);
@@ -101,7 +102,6 @@ const Image = styled.img`
     top: calc(50% + 113px);
     left: calc(50% - 457px);
     width: 470px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 5; */
     /* top: calc(50% + 119px);
@@ -114,7 +114,6 @@ const Image = styled.img`
     top: calc(50% + 86px);
     left: calc(50% - 202px);
     width: 810px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 6; */
     /* top: calc(50% + 96px);
@@ -127,7 +126,6 @@ const Image = styled.img`
     top: calc(50% + 160px);
     left: calc(50% + 20px);
     width: 450px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 13; */
     /* top: calc(50% + 149px);
@@ -140,7 +138,6 @@ const Image = styled.img`
     top: calc(50% + 123px);
     left: calc(50% + 305px);
     width: 538px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 8; */
     /* top: calc(50% + 134px);
@@ -154,7 +151,6 @@ const Image = styled.img`
     top: calc(50% + 86.5px);
     left: calc(50% + 590px);
     width: 383.5px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 10; */
     /* top: calc(50% + 86.5px);
@@ -167,7 +163,6 @@ const Image = styled.img`
     top: calc(50% + 242px);
     left: calc(50% - 64px);
     width: 543px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 11; */
     /* top: calc(50% + 242px);
@@ -180,7 +175,6 @@ const Image = styled.img`
     top: calc(50% + 269px);
     left: calc(50% + 130px);
     width: 583px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 12; */
     /* top: calc(50% + 269px);
@@ -190,10 +184,9 @@ const Image = styled.img`
 
   &.fog-3 {
     position: absolute;
-    top: calc(50% - 171px);
-    left: calc(50% - 29px);
+    top: calc(50% + 171px);
+    left: calc(50% + 171px);
     width: 449px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 7; */
     /* top: calc(50% + 171px);
@@ -206,7 +199,6 @@ const Image = styled.img`
     top: calc(50% + 221px);
     left: calc(50% - 381.5px);
     width: 717px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 14; */
     /* top: calc(50% + 221px);
@@ -219,7 +211,6 @@ const Image = styled.img`
     top: calc(50% + 133px);
     left: calc(50% + 736px);
     width: 419px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 15;
     top: calc(50% + 133px);
@@ -232,7 +223,6 @@ const Image = styled.img`
     top: calc(50% + 95px);
     left: calc(50% + 7px);
     width: 1833px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 4;
     top: calc(50% + 95px);
@@ -245,7 +235,6 @@ const Image = styled.img`
     top: calc(50% + 188px);
     left: calc(50% + 412px);
     width: 625px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 17;
     top: calc(50% + 188px);
@@ -258,7 +247,6 @@ const Image = styled.img`
     top: calc(50% + 91.5px);
     left: calc(50% - 601px);
     width: 450px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 18;
     top: calc(50% + 91.5px);
@@ -287,7 +275,6 @@ const Image = styled.img`
     top: calc(100% - 355px);
     left: 50%;
     width: 1600px;
-    transform: translate(-50%, -50%);
     z-index: ${(props) => props.index};
     /* z-index: 2;
     top: calc(50% - 100px);
@@ -306,6 +293,7 @@ const TextContainer = styled.div`
   text-transform: uppercase;
   color: #fff;
   line-height: 0.88;
+  pointer-events: all;
 
   h2 {
     font-weight: 100;
