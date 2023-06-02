@@ -22,6 +22,9 @@ export default function Parallax() {
       {top.map(({ title, image, parallax }, index) => (
         <Image key={title} className={`${parallax ? 'parallax ' : ''}${title}`} src={image} index={bottom.length + 1 + index + 1} />
       ))}
+
+      {/* Effect(s) */}
+      <div className='vignette' />
     </Container>
   );
 }
@@ -31,6 +34,16 @@ const Container = styled.main`
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+
+  .vignette {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.7));
+  }
 `;
 
 const Image = styled.img`
