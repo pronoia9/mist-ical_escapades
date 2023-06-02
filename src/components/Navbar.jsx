@@ -42,13 +42,17 @@ export default function Navbar() {
 }
 
 const Container = styled.header`
+  position: absolute;
+  z-index: 9999;
   width: 100%;
+  padding: 0.9rem 0;
+  top: 0;
+  left: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 const Wrapper = styled.nav`
   max-width: 1400px;
-  /* padding: 0 2rem; */
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
