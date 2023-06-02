@@ -109,10 +109,22 @@ const Image = styled.img`
 
 const TextContainer = styled.div`
   z-index: ${(props) => props.index};
+  position: absolute;
+  top: calc(50% - 130px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 0.88;
 
   h2 {
+    font-weight: 100;
+    font-size: 6.5rem;
   }
 
   h1 {
+    font-weight: 800;
+    font-size: 8rem;
   }
 `;
