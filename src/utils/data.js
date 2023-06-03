@@ -23,7 +23,7 @@ import {
   cloudsLight,
 } from '../assets';
 
-const parallaxText = { 'data-speedx': 0.07, 'data-speedy': 0.07, 'data-speedz': 0, 'data-rotation': 0.11, 'data-distance': 0 };
+const parallaxText = { 'data-speedx': 0.07, 'data-speedy': 0.07, 'data-speedz': 0, 'data-rotation': 0.11, };
 
 const parallaxImages = {
   bottom: [
