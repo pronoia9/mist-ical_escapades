@@ -1,71 +1,105 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 import { parallaxImages, parallaxText } from '../utils/data';
 
 export default function Parallax() {
   const { bottom, top } = parallaxImages;
+  // STATE
+  const [xValue, setX] = useState(0),
+    [yValue, setY] = useState(0),
+    [rotationDegree, setR] = useState(0),
+    [cursorPosition, setCursorPosition] = useState(0);
+  // REF
+  const parallaxRefs = useRef([]);
 
-  // Function for handling mouse movement
-  const handleMouseMove = (e) => {
-    let xValue = e.clientX - window.innerWidth / 2,
-      yValue = e.clientY - window.innerHeight / 2;
-    let rotateDegree = (xValue / window.innerWidth / 2) * 20;
+  // DO SOMETHING ONLY WHEN ALL THE PARALLAX REFS ARE SET
+  useEffect(() => {
+    parallaxRefs.current = parallaxRefs.current.flat();
+    if (parallaxRefs.current.length === top.length + 1 + bottom.length - 2) {
+    }
+  }, [parallaxRefs]);
 
-    const parallax_el = document.querySelectorAll('.parallax');
-    parallax_el.forEach((el) => {
-      let xStrength = el.dataset.speedx,
-        yStrength = el.dataset.speedy,
-        rotationStrength = el.dataset.rotation;
-      
-      let zValue = e.clientX - parseFloat(getComputedStyle(el).left),
-        leftOrRightSign = parseFloat(getComputedStyle(el).left) < window.innerWidth / 2 ? 1 : -1,
-        zStrength = el.dataset.speedz;
-      
-      el.style.transform = `
-      translateX(calc(-50% + ${-xValue * xStrength}px))
-      translateY(calc(-50% + ${yValue * yStrength}px))
-      perspective(2300px)
-      translateZ(${zValue * leftOrRightSign * zStrength}px)
-      rotateY(${rotateDegree * rotationStrength}deg)`;
-    });
-  };
-
-  // Event listener for mouse movement
+  // ADD EVENT FOR MOUSE MOVEMENT AT THE START THAT UPDATES THE STATES
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
-    return () => { window.removeEventListener('mousemove', handleMouseMove); };
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
-  // GSAP Animation
-  useEffect(() => { 
-    let timeline = gsap.timeline();
+  // FUNCTION THAT UPDATES THE STATE WITH MOUSE MOVEMENT
+  function handleMouseMove(e) {
+    let xValue = e.clientX - window.innerWidth / 2,
+      yValue = e.clientY - window.innerHeight / 2,
+      rotateDegree = (xValue / window.innerWidth / 2) * 20;
+    setX(xValue), setY(yValue), setR(rotateDegree), setCursorPosition(e.clientX);
+  }
 
-    const parallax_el = document.querySelectorAll('.parallax');
-    parallax_el.forEach((el) => {
-      timeline.from(el, {
-        top: `${el.offsetHeight / 2 + el.dataset.distance}px`,
-        duration: 3.5,
+  // UPDATE ANIMATIONS WHEN xValue, yValue, rotationDegree CHANGES
+  useEffect(() => {
+    update(xValue, yValue, rotationDegree, cursorPosition);
+  }, [xValue, yValue, rotationDegree, cursorPosition]);
+
+  // Function for updating the transforms
+  function update(xValue, yValue, rotateDegree, cursorPosition) {
+    if (parallaxRefs.current.length) {
+      parallaxRefs.current.forEach((el) => {
+        let speedx = el.dataset.speedx,
+          speedy = el.dataset.speedy,
+          speedz = el.dataset.speedz * 0.1;
+        let rotationSpeed = el.dataset.rotation;
+
+        let isInLeft = parseFloat(getComputedStyle(el).left) < window.innerWidth / 2 ? 1 : -1;
+        let zValue = cursorPosition - parseFloat(getComputedStyle(el).left) * isInLeft;
+
+        el.style.transform = `
+          translateX(calc(-50% + ${-xValue * speedx}px))
+          translateY(calc(-50% + ${-yValue * speedy}px))
+          perspective(2300px)
+          translateZ(${zValue * speedz}px)
+          rotateY(${rotateDegree * rotationSpeed}deg)`;
       });
-    });
-  }, []);
+    }
+  }
 
   return (
     <Container>
       {/* Behind the text */}
       {bottom.map(({ title, image, parallax, options }, index) => (
-        <Image key={title} className={`${parallax ? 'parallax ' : ''}${title}`} src={image} index={index + 1} {...options} />
+        <Image
+          ref={(ref) => (parallax ? (parallaxRefs.current[index] = ref) : null)}
+          key={title}
+          className={`${parallax ? 'parallax ' : ''}${title}`}
+          src={image}
+          index={index + 1}
+          {...options}
+          // initial={{ y: 200 }}
+          // animate={{ y: 0 }}
+          // exit={{}}
+        />
       ))}
 
       {/* Title */}
-      <TextContainer className='parallax' index={bottom.length + 1} {...parallaxText}>
+      <TextContainer className='parallax' index={bottom.length + 1} {...parallaxText} ref={(ref) => (parallaxRefs.current[bottom.length] = ref)}>
         <h2>Mist-ical</h2>
         <h1>Escapades</h1>
       </TextContainer>
 
       {/* On top of the title */}
       {top.map(({ title, image, parallax, options }, index) => (
-        <Image key={title} className={`${parallax ? 'parallax ' : ''}${title}`} src={image} index={bottom.length + 1 + index + 1} {...options} />
+        <Image
+          ref={(ref) => (parallax ? (parallaxRefs.current[bottom.length + 1 + index] = ref) : null)}
+          key={title}
+          className={`${parallax ? 'parallax ' : ''}${title}`}
+          src={image}
+          index={bottom.length + 1 + index + 1}
+          {...options}
+          // initial={{ y: 200 }}
+          // animate={{ y: 0 }}
+          // exit={{}}
+        />
       ))}
 
       {/* Effect(s) */}
@@ -92,7 +126,7 @@ const Container = styled.main`
   }
 `;
 
-const Image = styled.img`
+const Image = styled(motion.img)`
   &.parallax {
     transform: translate(-50%, -50%);
     transition: all 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99);
@@ -330,7 +364,7 @@ const Image = styled.img`
   }
 `;
 
-const TextContainer = styled.div`
+const TextContainer = styled(motion.div)`
   z-index: ${(props) => props.index};
   position: absolute;
   top: calc(50% - 130px);
