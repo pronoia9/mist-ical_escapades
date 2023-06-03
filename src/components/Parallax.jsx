@@ -37,26 +37,23 @@ export default function Parallax() {
 
   // FUNCTION TO UPDATE PARALLAX TRANSFORMS ACCORDING TO STATE VARIABLES
   function update(xValue, yValue, rotateDegree, cursorPosition) {
-    if (refsArr.current.length) {
-      refsArr.current
-        ?.filter((e) => e?.dataset?.speedx)
-        .forEach((el) => {
-          let speedx = el.dataset.speedx,
-            speedy = el.dataset.speedy,
-            speedz = el.dataset.speedz * 0.1;
-          let rotationSpeed = el.dataset.rotation;
-
-          let isInLeft = parseFloat(getComputedStyle(el).left) < window.innerWidth / 2 ? 1 : -1;
-          let zValue = cursorPosition - parseFloat(getComputedStyle(el).left) * isInLeft;
-
-          el.style.transform = `
+    if (!refsArr.current.length) return;
+    refsArr.current
+      ?.filter((e) => e?.dataset?.speedx)
+      .forEach((el) => {
+        let speedx = el.dataset.speedx,
+          speedy = el.dataset.speedy,
+          speedz = el.dataset.speedz * 0.1;
+        let rotationSpeed = el.dataset.rotation;
+        let isInLeft = parseFloat(getComputedStyle(el).left) < window.innerWidth / 2 ? 1 : -1;
+        let zValue = cursorPosition - parseFloat(getComputedStyle(el).left) * isInLeft;
+        el.style.transform = `
           translateX(calc(-50% + ${-xValue * speedx}px))
           translateY(calc(-50% + ${-yValue * speedy}px))
           perspective(2300px)
           translateZ(${zValue * speedz}px)
           rotateY(${rotateDegree * rotationSpeed}deg)`;
-        });
-    }
+      });
   }
 
   // GSAP ANIMATION
@@ -73,14 +70,16 @@ export default function Parallax() {
         .from(title[1], { y: window.innerHeight - title[1].getBoundingClientRect().top + 200, duration: 2 }, '2.5')
         .from(title[0], { y: -150, opacity: 0, duration: 1.5 }, '3');
       // SUN RAYS & BLACK SHADOW
-      staticRefs.current.length === 2 && staticRefs.current.forEach((el) => {
-        timeline.current.from(el, { opacity: 0, duration: 1.5 }, '3');
-      });
+      staticRefs.current.length === 2 &&
+        staticRefs.current.forEach((el) => {
+          timeline.current.from(el, { opacity: 0, duration: 1.5 }, '3');
+        });
       // HEADER / NAVBAR
       timeline.current.from('header', { opacity: 0, duration: 1.5 }, '3');
     }
   }, []);
 
+  // GRRRR RAAAWR IDK WHY GSAP DOESNT WORK UNLESS THIS IS WEIRD LIKE THIS
   useEffect(() => { refsArr.current = refsArr.current.flat(); }, [refsArr]);
   useEffect(() => { staticRefs.current = staticRefs.current.flat(); }, [staticRefs]);
 
