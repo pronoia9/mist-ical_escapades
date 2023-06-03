@@ -77,6 +77,8 @@ export default function Parallax() {
       staticRefs.current.length === 2 && staticRefs.current.forEach((el) => {
         timeline.from(el, { opacity: 0, duration: 1.5 }, '3');
       });
+      // HEADER / NAVBAR
+      timeline.from('header', { opacity: 0, duration: 1.5 }, '3');
     }
   }, []);
 
