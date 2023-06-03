@@ -23,12 +23,11 @@ export default function Parallax() {
 
   // FUNCTION THAT UPDATES THE STATE WITH MOUSE MOVEMENT
   function handleMouseMove(e) {
-    if (!timeline.current.isActive()) {
-      let xValue = e.clientX - window.innerWidth / 2,
-        yValue = e.clientY - window.innerHeight / 2,
-        rotateDegree = (xValue / window.innerWidth / 2) * 20;
-      setX(xValue), setY(yValue), setR(rotateDegree), setCursorPosition(e.clientX);
-    }
+    if (timeline.current.isActive()) return;
+    let xValue = e.clientX - window.innerWidth / 2,
+      yValue = e.clientY - window.innerHeight / 2,
+      rotateDegree = (xValue / window.innerWidth / 2) * 20;
+    setX(xValue), setY(yValue), setR(rotateDegree), setCursorPosition(e.clientX);
   }
 
   // UPDATE ANIMATIONS WHEN xValue, yValue, rotationDegree CHANGES
