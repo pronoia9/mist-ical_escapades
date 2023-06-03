@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { parallaxImages } from '../assets';
@@ -5,11 +6,28 @@ import { parallaxImages } from '../assets';
 export default function Parallax() {
   const { bottom, top } = parallaxImages;
 
+  // Function for handling mouse movement
+  const handleMouseMove = (e) => {
+    let xValue = e.clientX - window.innerWidth / 2,
+      yValue = e.clientY - window.innerHeight / 2;
+
+    const parallax_el = document.querySelectorAll('.parallax');
+    parallax_el.forEach((el) => {
+      el.style.transform = `translateX(calc(-50% + ${-xValue}px)) translateY(calc(-50% + ${yValue}px))`;
+    });
+  };
+
+  // Event listener for mouse movement
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => { window.removeEventListener('mousemove', handleMouseMove); };
+  }, []);
+
   return (
     <Container>
       {/* Behind the text */}
-      {bottom.map(({ title, image, parallax }, index) => (
-        <Image key={title} className={`${parallax ? 'parallax ' : ''}${title}`} src={image} index={index + 1} />
+      {bottom.map(({ title, image, parallax, speed }, index) => (
+        <Image key={title} className={`${parallax ? 'parallax ' : ''}${title}`} src={image} index={index + 1} {...speed} />
       ))}
 
       {/* Title */}
@@ -19,8 +37,8 @@ export default function Parallax() {
       </TextContainer>
 
       {/* On top of the title */}
-      {top.map(({ title, image, parallax }, index) => (
-        <Image key={title} className={`${parallax ? 'parallax ' : ''}${title}`} src={image} index={bottom.length + 1 + index + 1} />
+      {top.map(({ title, image, parallax, speed }, index) => (
+        <Image key={title} className={`${parallax ? 'parallax ' : ''}${title}`} src={image} index={bottom.length + 1 + index + 1} {...speed} />
       ))}
 
       {/* Effect(s) */}
@@ -59,6 +77,7 @@ const Image = styled.img`
     left: calc(50% + 10px);
     width: 2800px;
     z-index: ${(props) => props.index};
+    /* transform: translateX(${(props) => props.xValue}) translateY(${(props) => props.yValue}); */
     /* width: 2800px;
     top: calc(50% - 390px);
     left: calc(50% + 10px);
