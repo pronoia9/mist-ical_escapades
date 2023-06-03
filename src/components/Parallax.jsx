@@ -18,17 +18,17 @@ export default function Parallax() {
   // ADD EVENT FOR MOUSE MOVEMENT AT THE START THAT UPDATES THE STATES
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+    return () => { window.removeEventListener('mousemove', handleMouseMove); };
   }, []);
 
   // FUNCTION THAT UPDATES THE STATE WITH MOUSE MOVEMENT
   function handleMouseMove(e) {
-    let xValue = e.clientX - window.innerWidth / 2,
-      yValue = e.clientY - window.innerHeight / 2,
-      rotateDegree = (xValue / window.innerWidth / 2) * 20;
-    setX(xValue), setY(yValue), setR(rotateDegree), setCursorPosition(e.clientX);
+    if (!timeline.current.isActive()) {
+      let xValue = e.clientX - window.innerWidth / 2,
+        yValue = e.clientY - window.innerHeight / 2,
+        rotateDegree = (xValue / window.innerWidth / 2) * 20;
+      setX(xValue), setY(yValue), setR(rotateDegree), setCursorPosition(e.clientX);
+    }
   }
 
   // UPDATE ANIMATIONS WHEN xValue, yValue, rotationDegree CHANGES
