@@ -11,7 +11,8 @@ export default function Parallax() {
     [rotationDegree, setR] = useState(0),
     [cursorPosition, setCursorPosition] = useState(0);
   // REFS
-  const refsArr = useRef([]);
+  const refsArr = useRef([]),
+    staticRefs = useRef([]);
 
   // ADD EVENT FOR MOUSE MOVEMENT AT THE START THAT UPDATES THE STATES
   useEffect(() => {
@@ -37,34 +38,33 @@ export default function Parallax() {
   // FUNCTION TO UPDATE PARALLAX TRANSFORMS ACCORDING TO STATE VARIABLES
   function update(xValue, yValue, rotateDegree, cursorPosition) {
     if (refsArr.current.length) {
-      refsArr.current.filter((e) => e.dataset.speedx).forEach((el) => {
-        let speedx = el.dataset.speedx,
-          speedy = el.dataset.speedy,
-          speedz = el.dataset.speedz * 0.1;
-        let rotationSpeed = el.dataset.rotation;
+      refsArr.current
+        ?.filter((e) => e?.dataset?.speedx)
+        .forEach((el) => {
+          let speedx = el.dataset.speedx,
+            speedy = el.dataset.speedy,
+            speedz = el.dataset.speedz * 0.1;
+          let rotationSpeed = el.dataset.rotation;
 
-        let isInLeft = parseFloat(getComputedStyle(el).left) < window.innerWidth / 2 ? 1 : -1;
-        let zValue = cursorPosition - parseFloat(getComputedStyle(el).left) * isInLeft;
+          let isInLeft = parseFloat(getComputedStyle(el).left) < window.innerWidth / 2 ? 1 : -1;
+          let zValue = cursorPosition - parseFloat(getComputedStyle(el).left) * isInLeft;
 
-        el.style.transform = `
+          el.style.transform = `
           translateX(calc(-50% + ${-xValue * speedx}px))
           translateY(calc(-50% + ${-yValue * speedy}px))
           perspective(2300px)
           translateZ(${zValue * speedz}px)
           rotateY(${rotateDegree * rotationSpeed}deg)`;
-      });
+        });
     }
   }
-
-  // FLATTEN TO GET RID OF EMPTY [] (eg: sun-rays, black-shadow are in the middle of the array but arent here)
-  useEffect(() => { refsArr.current = refsArr.current.flat(); }, [refsArr]);
 
   // GSAP ANIMATION
   useLayoutEffect(() => {
     if (refsArr.current.length === top.length + 1 + bottom.length - 2) {
       const timeline = gsap.timeline();
       refsArr.current
-        .filter((e) => e.dataset.distance)
+        ?.filter((e) => e?.dataset?.distance)
         .forEach((el) => {
           timeline.from(el, { top: `${el.offsetHeight / 2 + +el.dataset.distance}px`, duration: 3.5, ease: 'power3.out' }, '1');
         });
@@ -75,22 +75,21 @@ export default function Parallax() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(refsArr.current);
+    refsArr.current = refsArr.current.flat();
+    console.log(refsArr.current);
+  }, [refsArr, staticRefs]);
+
   return (
     <Container>
       {/* Behind the text */}
       {bottom.map(({ title, image, parallax, options }, index) => (
-        <Image
-          ref={(ref) => (refsArr.current[index] = ref)}
-          key={title}
-          src={image}
-          index={index}
-          className={`parallax ${title}`}
-          {...options}
-        />
+        <Image ref={(ref) => (refsArr.current.push(ref))} key={title} src={image} index={index} className={`parallax ${title}`} {...options} />
       ))}
 
       {/* Title */}
-      <TextContainer ref={(ref) => (refsArr.current[bottom.length] = ref)} className='parallax text' index={bottom.length} {...parallaxText}>
+      <TextContainer ref={(ref) => (refsArr.current.push(ref))} className='parallax text' index={bottom.length} {...parallaxText}>
         <h2>Mist-ical</h2>
         <h1>Escapades</h1>
       </TextContainer>
@@ -98,7 +97,7 @@ export default function Parallax() {
       {/* On top of the title */}
       {top.map(({ title, image, parallax, options }, index) => (
         <Image
-          ref={(ref) => (parallax ? (refsArr.current[bottom.length + 1 + index] = ref) : null)}
+          ref={(ref) => (parallax ? (refsArr.current[bottom.length + 1 + index] = ref) : staticRefs.current.push(ref))}
           key={title}
           src={image}
           className={`${parallax ? 'parallax ' : ''}${title}`}
