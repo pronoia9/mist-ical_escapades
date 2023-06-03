@@ -61,10 +61,10 @@ export default function Parallax() {
 
   // GSAP ANIMATION
   useLayoutEffect(() => {
+    const timeline = gsap.timeline();
     if (refsArr.current.length === top.length + 1 + bottom.length - 2) {
-      const timeline = gsap.timeline();
       refsArr.current
-        ?.filter((e) => e?.dataset?.distance)
+        .filter((e) => e.dataset.distance)
         .forEach((el) => {
           timeline.from(el, { top: `${el.offsetHeight / 2 + +el.dataset.distance}px`, duration: 3.5, ease: 'power3.out' }, '1');
         });
@@ -75,21 +75,18 @@ export default function Parallax() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(refsArr.current);
-    refsArr.current = refsArr.current.flat();
-    console.log(refsArr.current);
-  }, [refsArr, staticRefs]);
+  useEffect(() => { refsArr.current = refsArr.current.flat(); }, [refsArr]);
+  useEffect(() => { staticRefs.current = staticRefs.current.flat(); }, [staticRefs]);
 
   return (
     <Container>
       {/* Behind the text */}
       {bottom.map(({ title, image, parallax, options }, index) => (
-        <Image ref={(ref) => (refsArr.current.push(ref))} key={title} src={image} index={index} className={`parallax ${title}`} {...options} />
+        <Image ref={(ref) => (refsArr.current[index] = ref)} key={title} src={image} index={index} className={`parallax ${title}`} {...options} />
       ))}
 
       {/* Title */}
-      <TextContainer ref={(ref) => (refsArr.current.push(ref))} className='parallax text' index={bottom.length} {...parallaxText}>
+      <TextContainer ref={(ref) => (refsArr.current[bottom.length] = ref)} className='parallax text' index={bottom.length} {...parallaxText}>
         <h2>Mist-ical</h2>
         <h1>Escapades</h1>
       </TextContainer>
@@ -97,7 +94,7 @@ export default function Parallax() {
       {/* On top of the title */}
       {top.map(({ title, image, parallax, options }, index) => (
         <Image
-          ref={(ref) => (parallax ? (refsArr.current[bottom.length + 1 + index] = ref) : staticRefs.current.push(ref))}
+          ref={(ref) => (parallax ? (refsArr.current[bottom.length + 1 + index] = ref) : (staticRefs.current[index] = ref))}
           key={title}
           src={image}
           className={`${parallax ? 'parallax ' : ''}${title}`}
