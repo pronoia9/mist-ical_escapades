@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { parallaxImages, parallaxText } from '../utils/data';
@@ -12,13 +12,6 @@ export default function Parallax() {
     [cursorPosition, setCursorPosition] = useState(0);
   // REF
   const parallaxRefs = useRef([]);
-
-  // DO SOMETHING ONLY WHEN ALL THE PARALLAX REFS ARE SET
-  useEffect(() => {
-    parallaxRefs.current = parallaxRefs.current.flat();
-    if (parallaxRefs.current.length === top.length + 1 + bottom.length - 2) {
-    }
-  }, [parallaxRefs]);
 
   // ADD EVENT FOR MOUSE MOVEMENT AT THE START THAT UPDATES THE STATES
   useEffect(() => {
@@ -41,20 +34,7 @@ export default function Parallax() {
     update(xValue, yValue, rotationDegree, cursorPosition);
   }, [xValue, yValue, rotationDegree, cursorPosition]);
 
-  // GSAP ANIMATION (TEST)
-  useEffect(() => {
-    if (parallaxRefs.current.length === top.length + 1 + bottom.length - 2) {
-      console.log('AAASDASDASDADASDASDASDASDASDASDASDASDASDASDASFASGFDHFK;DFGKSDLFJSDLKFGJSHKLGJSLDK;F');
-      let timeline = gsap.timeline();
-      console.log(timeline);
-      timeline.from('.bg-img', {top: 0})
-      parallaxRefs.current.forEach((el) => {
-        // 
-      });
-    }
-  }, []);
-
-  // Function for updating the transforms
+  // FUNCTION TO UPDATE PARALLAX TRANSFORMS ACCORDING TO STATE VARIABLES
   function update(xValue, yValue, rotateDegree, cursorPosition) {
     if (parallaxRefs.current.length) {
       parallaxRefs.current.forEach((el) => {
@@ -75,6 +55,19 @@ export default function Parallax() {
       });
     }
   }
+
+  // FLATTEN TO GET RID OF EMPTY [] (eg: sun-rays, black-shadow are in the middle of the array but arent here)
+  useEffect(() => {
+    parallaxRefs.current = parallaxRefs.current.flat();
+  }, [parallaxRefs]);
+
+  // GSAP ANIMATION (TEST)
+  useLayoutEffect(() => {
+    if (parallaxRefs.current.length === top.length + 1 + bottom.length - 2) {
+      let timeline = gsap.timeline();
+      timeline.from('.bg-img', { top: '0px', duration: 3.5 });
+    }
+  }, []);
 
   return (
     <Container>
