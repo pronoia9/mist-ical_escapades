@@ -10,7 +10,7 @@ export default function Parallax() {
     [yValue, setY] = useState(0),
     [rotationDegree, setR] = useState(0),
     [cursorPosition, setCursorPosition] = useState(0);
-  // REF
+  // REFS
   const refsArr = useRef([]);
 
   // ADD EVENT FOR MOUSE MOVEMENT AT THE START THAT UPDATES THE STATES
