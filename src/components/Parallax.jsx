@@ -15,7 +15,8 @@ export default function Parallax() {
     const parallax_el = document.querySelectorAll('.parallax');
     parallax_el.forEach((el) => {
       let xStrength = el.dataset.speedx,
-        yStrength = el.dataset.speedy;
+        yStrength = el.dataset.speedy,
+        rotationStrength = el.dataset.rotation;
       
       let zValue = e.clientX - parseFloat(getComputedStyle(el).left),
         leftOrRightSign = parseFloat(getComputedStyle(el).left) < window.innerWidth / 2 ? 1 : -1,
@@ -26,16 +27,14 @@ export default function Parallax() {
       translateY(calc(-50% + ${yValue * yStrength}px))
       perspective(2300px)
       translateZ(${zValue * leftOrRightSign * zStrength}px)
-      rotateY(${rotateDegree}deg)`;
+      rotateY(${rotateDegree * rotationStrength}deg)`;
     });
   };
 
   // Event listener for mouse movement
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+    return () => { window.removeEventListener('mousemove', handleMouseMove); };
   }, []);
 
   return (
