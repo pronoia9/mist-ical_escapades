@@ -69,20 +69,20 @@ export default function Parallax() {
       {/* Behind the text */}
       {bottom.map(({ title, image, parallax, options }, index) => (
         <Image
-          ref={(ref) => (parallax ? (parallaxRefs.current[index] = ref) : null)}
+          ref={(ref) => (parallaxRefs.current[index] = ref)}
           key={title}
-          className={`${parallax ? 'parallax ' : ''}${title}`}
           src={image}
           index={index + 1}
+          className={`parallax ${title}`}
           {...options}
-          // initial={{ y: 200 }}
-          // animate={{ y: 0 }}
-          // exit={{}}
+          initial={{}}
+          animate={{}}
+          exit={{}}
         />
       ))}
 
       {/* Title */}
-      <TextContainer className='parallax' index={bottom.length + 1} {...parallaxText} ref={(ref) => (parallaxRefs.current[bottom.length] = ref)}>
+      <TextContainer ref={(ref) => (parallaxRefs.current[bottom.length] = ref)} className='parallax' index={bottom.length + 1} {...parallaxText}>
         <h2>Mist-ical</h2>
         <h1>Escapades</h1>
       </TextContainer>
@@ -92,13 +92,13 @@ export default function Parallax() {
         <Image
           ref={(ref) => (parallax ? (parallaxRefs.current[bottom.length + 1 + index] = ref) : null)}
           key={title}
-          className={`${parallax ? 'parallax ' : ''}${title}`}
           src={image}
-          index={bottom.length + 1 + index + 1}
+          className={`${parallax ? 'parallax ' : ''}${title}`}
+          index={bottom.length + 1 + index}
           {...options}
-          // initial={{ y: 200 }}
-          // animate={{ y: 0 }}
-          // exit={{}}
+          initial={{}}
+          animate={{}}
+          exit={{}}
         />
       ))}
 
@@ -116,7 +116,6 @@ const Container = styled.main`
   overflow: hidden;
 
   .vignette {
-    position: absolute;
     z-index: 100;
     width: 100%;
     height: 100%;
@@ -124,22 +123,24 @@ const Container = styled.main`
     left: 0;
     background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.7));
   }
-`;
 
-const Image = styled(motion.img)`
   &.parallax {
     transform: translate(-50%, -50%);
     transition: all 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99);
   }
 
+  & > * {
+    position: absolute;
+  }
+`;
+
+const Image = styled(motion.img)`
   /**************************  BOTTOM IMAGES  *************************/
   &.bg-img {
-    position: absolute;
     top: calc(50% - 390px);
     left: calc(50% + 10px);
     width: 2800px;
     z-index: ${(props) => props.index};
-    /* transform: translateX(${(props) => props.xValue}) translateY(${(props) => props.yValue}); */
     /* width: 2800px;
     top: calc(50% - 390px);
     left: calc(50% + 10px);
@@ -147,7 +148,6 @@ const Image = styled(motion.img)`
   }
 
   &.fog-7 {
-    position: absolute;
     top: calc(50% - 100px);
     left: calc(50% + 300px);
     width: 1900px;
@@ -155,7 +155,6 @@ const Image = styled(motion.img)`
   }
 
   &.mountain-10 {
-    position: absolute;
     top: calc(50% + 69px);
     left: calc(50% + 230px);
     width: 892px;
@@ -167,7 +166,6 @@ const Image = styled(motion.img)`
   }
 
   &.fog-6 {
-    position: absolute;
     top: calc(50% + 85px);
     left: calc(50% + 10px);
     width: 1610px;
@@ -179,7 +177,6 @@ const Image = styled(motion.img)`
   }
 
   &.mountain-9 {
-    position: absolute;
     top: calc(50% + 113px);
     left: calc(50% - 457px);
     width: 470px;
@@ -191,7 +188,6 @@ const Image = styled(motion.img)`
   }
 
   &.mountain-8 {
-    position: absolute;
     top: calc(50% + 86px);
     left: calc(50% - 202px);
     width: 810px;
@@ -203,7 +199,6 @@ const Image = styled(motion.img)`
   }
 
   &.fog-5 {
-    position: absolute;
     top: calc(50% + 160px);
     left: calc(50% + 20px);
     width: 450px;
@@ -215,7 +210,6 @@ const Image = styled(motion.img)`
   }
 
   &.mountain-7 {
-    position: absolute;
     top: calc(50% + 123px);
     left: calc(50% + 305px);
     width: 538px;
@@ -228,7 +222,6 @@ const Image = styled(motion.img)`
 
   /***************************  TOP IMAGES  ***************************/
   &.mountain-6 {
-    position: absolute;
     top: calc(50% + 86.5px);
     left: calc(50% + 590px);
     width: 383.5px;
@@ -240,7 +233,6 @@ const Image = styled(motion.img)`
   }
 
   &.fog-4 {
-    position: absolute;
     top: calc(50% + 242px);
     left: calc(50% - 64px);
     width: 543px;
@@ -252,7 +244,6 @@ const Image = styled(motion.img)`
   }
 
   &.mountain-5 {
-    position: absolute;
     top: calc(50% + 269px);
     left: calc(50% + 130px);
     width: 583px;
@@ -264,7 +255,6 @@ const Image = styled(motion.img)`
   }
 
   &.fog-3 {
-    position: absolute;
     top: calc(50% + 171px);
     left: calc(50% + 171px);
     width: 449px;
@@ -276,7 +266,6 @@ const Image = styled(motion.img)`
   }
 
   &.mountain-4 {
-    position: absolute;
     top: calc(50% + 221px);
     left: calc(50% - 381.5px);
     width: 717px;
@@ -288,7 +277,6 @@ const Image = styled(motion.img)`
   }
 
   &.mountain-3 {
-    position: absolute;
     top: calc(50% + 133px);
     left: calc(50% + 736px);
     width: 419px;
@@ -300,7 +288,6 @@ const Image = styled(motion.img)`
   }
 
   &.fog-2 {
-    position: absolute;
     top: calc(50% + 95px);
     left: calc(50% + 7px);
     width: 1833px;
@@ -312,7 +299,6 @@ const Image = styled(motion.img)`
   }
 
   &.mountain-2 {
-    position: absolute;
     top: calc(50% + 188px);
     left: calc(50% + 412px);
     width: 625px;
@@ -324,7 +310,6 @@ const Image = styled(motion.img)`
   }
 
   &.mountain-1 {
-    position: absolute;
     top: calc(50% + 91.5px);
     left: calc(50% - 601px);
     width: 450px;
@@ -336,7 +321,6 @@ const Image = styled(motion.img)`
   }
 
   &.sun-rays {
-    position: absolute;
     top: 0%;
     right: 0%;
     width: 595px;
@@ -344,7 +328,6 @@ const Image = styled(motion.img)`
   }
 
   &.black-shadow {
-    position: absolute;
     bottom: 0%;
     right: 0%;
     width: 100%;
@@ -352,7 +335,6 @@ const Image = styled(motion.img)`
   }
 
   &.fog-1 {
-    position: absolute;
     top: calc(100% - 355px);
     left: 50%;
     width: 1600px;
