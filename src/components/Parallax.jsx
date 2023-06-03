@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { parallaxImages } from '../utils/data';
+import { parallaxImages, parallaxText } from '../utils/data';
 
 export default function Parallax() {
   const { bottom, top } = parallaxImages;
@@ -58,7 +58,7 @@ export default function Parallax() {
       ))}
 
       {/* Title */}
-      <TextContainer className='parallax' index={bottom.length + 1} data-speedx={0.07} data-speedy={0.07} data-speedz={0} data-rotation={0.11} data-distance={-200}>
+      <TextContainer className='parallax' index={bottom.length + 1} {...parallaxText}>
         <h2>Mist-ical</h2>
         <h1>Escapades</h1>
       </TextContainer>
