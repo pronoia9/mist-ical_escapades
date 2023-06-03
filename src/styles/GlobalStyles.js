@@ -15,6 +15,10 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.text};
   }
 
+  ::selection {
+    background-color: '#0b372bb';
+  }
+
   a {
     text-decoration: none;
   }
