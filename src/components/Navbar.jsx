@@ -49,6 +49,10 @@ const Container = styled.header`
   top: 0;
   left: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  * {
+    color: #fff;
+  }
 `;
 
 const Wrapper = styled.nav`
@@ -71,7 +75,6 @@ const NavList = styled.ul`
 
 const NavListItem = styled.li`
   a {
-    color: #fff;
     padding: 0 1.5rem;
     text-transform: uppercase;
     font-weight: 300;
