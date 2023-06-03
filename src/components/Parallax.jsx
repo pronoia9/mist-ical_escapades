@@ -13,14 +13,18 @@ export default function Parallax() {
 
     const parallax_el = document.querySelectorAll('.parallax');
     parallax_el.forEach((el) => {
-      el.style.transform = `translateX(calc(-50% + ${-xValue}px)) translateY(calc(-50% + ${yValue}px))`;
+      let speedx = el.dataset.speedx,
+        speedy = el.dataset.speedy;
+      el.style.transform = `translateX(calc(-50% + ${-xValue * speedx}px)) translateY(calc(-50% + ${yValue * speedy}px))`;
     });
   };
 
   // Event listener for mouse movement
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
-    return () => { window.removeEventListener('mousemove', handleMouseMove); };
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   return (
