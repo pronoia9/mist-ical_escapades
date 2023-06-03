@@ -35,7 +35,7 @@ export default function Parallax() {
       ))}
 
       {/* Title */}
-      <TextContainer index={bottom.length + 1}>
+      <TextContainer className='parallax' index={bottom.length + 1} data-speedx={0.07} data-speedy={0.07}>
         <h2>Mist-ical</h2>
         <h1>Escapades</h1>
       </TextContainer>
