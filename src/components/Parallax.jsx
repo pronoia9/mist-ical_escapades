@@ -64,12 +64,16 @@ export default function Parallax() {
   // GSAP ANIMATION
   useLayoutEffect(() => {
     if (parallaxRefs.current.length === top.length + 1 + bottom.length - 2) {
-      let timeline = gsap.timeline();
-      timeline.add('start');
-      parallaxRefs.current.filter((e) => e.dataset.distance).forEach((el) => {
-        timeline.from(el, { top: `${el.offsetHeight / 2 + +el.dataset.distance}px`, delay: 0, duration: 3.5 }, 'start');
-      });
-      // console.log(parallaxRefs.current[8].children);
+      const timeline = gsap.timeline();
+      parallaxRefs.current
+        .filter((e) => e.dataset.distance)
+        .forEach((el) => {
+          timeline.from(el, { top: `${el.offsetHeight / 2 + +el.dataset.distance}px`, duration: 3.5, ease: 'power3.out' }, '1');
+        });
+      const title = [...parallaxRefs.current[8].children];
+      timeline
+        .from(title[1], { y: window.innerHeight - title[1].getBoundingClientRect().top + 200, duration: 2 }, '2.5')
+        .from(title[0], { y: -150, opacity: 0, duration: 1.5 }, '3');
     }
   }, []);
 
