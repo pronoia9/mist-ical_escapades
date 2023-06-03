@@ -93,19 +93,19 @@ const parallaxImages = {
       title: 'mountain-5',
       image: mountain5,
       parallax: true,
-      options: { 'data-speedx': 0.08, 'data-speedy': 0, 'data-speedz': 0.13, 'data-rotation': 0, 'data-distance': 2550 },
+      options: { 'data-speedx': 0.08, 'data-speedy': 0, 'data-speedz': 0.13, 'data-rotation': 0.1, 'data-distance': 2550 },
     },
     {
       title: 'fog-3',
       image: fog3,
       parallax: true,
-      options: { 'data-speedx': 0.11, 'data-speedy': 0.018, 'data-speedz': 0, 'data-rotation': 0.1, 'data-distance': 2800 },
+      options: { 'data-speedx': 0.11, 'data-speedy': 0.018, 'data-speedz': 0, 'data-rotation': 0, 'data-distance': 2800 },
     },
     {
       title: 'mountain-4',
       image: mountain4,
       parallax: true,
-      options: { 'data-speedx': 0.059, 'data-speedy': 0.024, 'data-speedz': 0, 'data-rotation': 0.35, 'data-distance': 3200 },
+      options: { 'data-speedx': 0.059, 'data-speedy': 0.024, 'data-speedz': 0, 'data-rotation': 0.14, 'data-distance': 3200 },
     },
     {
       title: 'mountain-3',
@@ -123,7 +123,7 @@ const parallaxImages = {
       title: 'mountain-2',
       image: mountain2,
       parallax: true,
-      options: { 'data-speedx': 0.035, 'data-speedy': 0.013, 'data-speedz': 0, 'data-rotation': 0.15, 'data-distance': 3800 },
+      options: { 'data-speedx': 0.035, 'data-speedy': 0.013, 'data-speedz': 0.42, 'data-rotation': 0.15, 'data-distance': 3800 },
     },
     {
       title: 'mountain-1',
