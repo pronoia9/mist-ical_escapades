@@ -65,9 +65,11 @@ export default function Parallax() {
   useLayoutEffect(() => {
     if (parallaxRefs.current.length === top.length + 1 + bottom.length - 2) {
       let timeline = gsap.timeline();
-      parallaxRefs.current.forEach((el) => {
-        timeline.from(el, { top: `${el.offsetHeight / 2 + +el.dataset.distance}px`, duration: 0.1 });
+      timeline.add('start');
+      parallaxRefs.current.filter((e) => e.dataset.distance).forEach((el) => {
+        timeline.from(el, { top: `${el.offsetHeight / 2 + +el.dataset.distance}px`, delay: 0, duration: 3.5 }, 'start');
       });
+      // console.log(parallaxRefs.current[8].children);
     }
   }, []);
 
@@ -86,7 +88,7 @@ export default function Parallax() {
       ))}
 
       {/* Title */}
-      <TextContainer ref={(ref) => (parallaxRefs.current[bottom.length] = ref)} className='parallax' index={bottom.length + 1} {...parallaxText}>
+      <TextContainer ref={(ref) => (parallaxRefs.current[bottom.length] = ref)} className='parallax text' index={bottom.length + 1} {...parallaxText}>
         <h2>Mist-ical</h2>
         <h1>Escapades</h1>
       </TextContainer>
