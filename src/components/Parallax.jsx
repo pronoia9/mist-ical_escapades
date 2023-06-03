@@ -11,7 +11,7 @@ export default function Parallax() {
     [rotationDegree, setR] = useState(0),
     [cursorPosition, setCursorPosition] = useState(0);
   // REF
-  const parallaxRefs = useRef([]);
+  const refsArr = useRef([]);
 
   // ADD EVENT FOR MOUSE MOVEMENT AT THE START THAT UPDATES THE STATES
   useEffect(() => {
@@ -36,8 +36,8 @@ export default function Parallax() {
 
   // FUNCTION TO UPDATE PARALLAX TRANSFORMS ACCORDING TO STATE VARIABLES
   function update(xValue, yValue, rotateDegree, cursorPosition) {
-    if (parallaxRefs.current.length) {
-      parallaxRefs.current.forEach((el) => {
+    if (refsArr.current.length) {
+      refsArr.current.forEach((el) => {
         let speedx = el.dataset.speedx,
           speedy = el.dataset.speedy,
           speedz = el.dataset.speedz * 0.1;
@@ -58,19 +58,19 @@ export default function Parallax() {
 
   // FLATTEN TO GET RID OF EMPTY [] (eg: sun-rays, black-shadow are in the middle of the array but arent here)
   useEffect(() => {
-    parallaxRefs.current = parallaxRefs.current.flat();
-  }, [parallaxRefs]);
+    refsArr.current = refsArr.current.flat();
+  }, [refsArr]);
 
   // GSAP ANIMATION
   useLayoutEffect(() => {
-    if (parallaxRefs.current.length === top.length + 1 + bottom.length - 2) {
+    if (refsArr.current.length === top.length + 1 + bottom.length - 2) {
       const timeline = gsap.timeline();
-      parallaxRefs.current
+      refsArr.current
         .filter((e) => e.dataset.distance)
         .forEach((el) => {
           timeline.from(el, { top: `${el.offsetHeight / 2 + +el.dataset.distance}px`, duration: 3.5, ease: 'power3.out' }, '1');
         });
-      const title = [...parallaxRefs.current[8].children];
+      const title = [...refsArr.current[8].children];
       timeline
         .from(title[1], { y: window.innerHeight - title[1].getBoundingClientRect().top + 200, duration: 2 }, '2.5')
         .from(title[0], { y: -150, opacity: 0, duration: 1.5 }, '3');
@@ -82,7 +82,7 @@ export default function Parallax() {
       {/* Behind the text */}
       {bottom.map(({ title, image, parallax, options }, index) => (
         <Image
-          ref={(ref) => (parallaxRefs.current[index] = ref)}
+          ref={(ref) => (refsArr.current[index] = ref)}
           key={title}
           src={image}
           index={index + 1}
@@ -92,7 +92,7 @@ export default function Parallax() {
       ))}
 
       {/* Title */}
-      <TextContainer ref={(ref) => (parallaxRefs.current[bottom.length] = ref)} className='parallax text' index={bottom.length + 1} {...parallaxText}>
+      <TextContainer ref={(ref) => (refsArr.current[bottom.length] = ref)} className='parallax text' index={bottom.length + 1} {...parallaxText}>
         <h2>Mist-ical</h2>
         <h1>Escapades</h1>
       </TextContainer>
@@ -100,7 +100,7 @@ export default function Parallax() {
       {/* On top of the title */}
       {top.map(({ title, image, parallax, options }, index) => (
         <Image
-          ref={(ref) => (parallax ? (parallaxRefs.current[bottom.length + 1 + index] = ref) : null)}
+          ref={(ref) => (parallax ? (refsArr.current[bottom.length + 1 + index] = ref) : null)}
           key={title}
           src={image}
           className={`${parallax ? 'parallax ' : ''}${title}`}
