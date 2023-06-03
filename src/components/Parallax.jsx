@@ -305,4 +305,38 @@ const TextContainer = styled.div`
     font-weight: 800;
     font-size: 8rem;
   }
+
+  @media (max-width: 1100px) {
+    h1 {
+      font-size: 5.8rem;
+    }
+
+    h2 {
+      font-size: 4.7rem;
+    }
+  }
+
+  @media (max-width: 725px) {
+    line-height: 1.1;
+
+    h1 {
+      font-size: 5rem;
+    }
+
+    h2 {
+      font-size: 4.1rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    line-height: 1.1;
+
+    h1 {
+      font-size: 3.3rem;
+    }
+
+    h2 {
+      font-size: 2.6rem;
+    }
+  }
 `;
