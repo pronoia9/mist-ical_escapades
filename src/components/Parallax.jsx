@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { parallaxImages } from '../assets';
+import { parallaxImages } from '../utils/data';
 
 export default function Parallax() {
   const { bottom, top } = parallaxImages;
@@ -37,6 +37,19 @@ export default function Parallax() {
     return () => { window.removeEventListener('mousemove', handleMouseMove); };
   }, []);
 
+  // GSAP Animation
+  useEffect(() => { 
+    let timeline = gsap.timeline();
+
+    const parallax_el = document.querySelectorAll('.parallax');
+    parallax_el.forEach((el) => {
+      timeline.from(el, {
+        top: `${el.offsetHeight / 2 + el.dataset.distance}px`,
+        duration: 3.5,
+      });
+    });
+  }, []);
+
   return (
     <Container>
       {/* Behind the text */}
@@ -45,7 +58,7 @@ export default function Parallax() {
       ))}
 
       {/* Title */}
-      <TextContainer className='parallax' index={bottom.length + 1} data-speedx={0.07} data-speedy={0.07} data-speedz={0} data-rotation={0.11}>
+      <TextContainer className='parallax' index={bottom.length + 1} data-speedx={0.07} data-speedy={0.07} data-speedz={0} data-rotation={0.11} data-distance={-200}>
         <h2>Mist-ical</h2>
         <h1>Escapades</h1>
       </TextContainer>
