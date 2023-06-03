@@ -12,7 +12,8 @@ export default function Parallax() {
     [cursorPosition, setCursorPosition] = useState(0);
   // REFS
   const refsArr = useRef([]),
-    staticRefs = useRef([]);
+    staticRefs = useRef([]),
+    timeline = useRef(gsap.timeline());
 
   // ADD EVENT FOR MOUSE MOVEMENT AT THE START THAT UPDATES THE STATES
   useEffect(() => {
@@ -61,24 +62,23 @@ export default function Parallax() {
 
   // GSAP ANIMATION
   useLayoutEffect(() => {
-    const timeline = gsap.timeline();
     if (refsArr.current.length === top.length + 1 + bottom.length - 2) {
       refsArr.current
         .filter((e) => e.dataset.distance)
         .forEach((el) => {
-          timeline.from(el, { top: `${el.offsetHeight / 2 + +el.dataset.distance}px`, duration: 3.5, ease: 'power3.out' }, '1');
+          timeline.current.from(el, { top: `${el.offsetHeight / 2 + +el.dataset.distance}px`, duration: 3.5, ease: 'power3.out' }, '1');
         });
       // TEXT
       const title = [...refsArr.current[8].children];
-      timeline
+      timeline.current
         .from(title[1], { y: window.innerHeight - title[1].getBoundingClientRect().top + 200, duration: 2 }, '2.5')
         .from(title[0], { y: -150, opacity: 0, duration: 1.5 }, '3');
       // SUN RAYS & BLACK SHADOW
       staticRefs.current.length === 2 && staticRefs.current.forEach((el) => {
-        timeline.from(el, { opacity: 0, duration: 1.5 }, '3');
+        timeline.current.from(el, { opacity: 0, duration: 1.5 }, '3');
       });
       // HEADER / NAVBAR
-      timeline.from('header', { opacity: 0, duration: 1.5 }, '3');
+      timeline.current.from('header', { opacity: 0, duration: 1.5 }, '3');
     }
   }, []);
 
