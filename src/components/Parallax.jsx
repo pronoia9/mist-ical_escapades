@@ -61,11 +61,13 @@ export default function Parallax() {
     parallaxRefs.current = parallaxRefs.current.flat();
   }, [parallaxRefs]);
 
-  // GSAP ANIMATION (TEST)
+  // GSAP ANIMATION
   useLayoutEffect(() => {
     if (parallaxRefs.current.length === top.length + 1 + bottom.length - 2) {
       let timeline = gsap.timeline();
-      timeline.from('.bg-img', { top: '0px', duration: 3.5 });
+      parallaxRefs.current.forEach((el) => {
+        timeline.from(el, { top: `${el.offsetHeight / 2 + +el.dataset.distance}px`, duration: 0.1 });
+      });
     }
   }, []);
 
