@@ -114,22 +114,22 @@ const Container = styled.main`
   width: 100vw;
   overflow: hidden;
 
-  .vignette {
-    z-index: 100;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.7));
-  }
-
-  &.parallax {
-    transform: translate(-50%, -50%);
-    transition: all 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99);
-  }
-
   & > * {
     position: absolute;
+  }
+
+  .vignette {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.7));
+    z-index: 100;
+  }
+
+  .parallax {
+    transform: translate(-50%, -50%);
+    transition: all 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99);
   }
 `;
 
@@ -140,10 +140,6 @@ const Image = styled.img`
     left: calc(50% + 10px);
     width: 2800px;
     z-index: ${(props) => props.index};
-    /* width: 2800px;
-    top: calc(50% - 390px);
-    left: calc(50% + 10px);
-    z-index: 1; */
   }
 
   &.fog-7 {
@@ -158,10 +154,6 @@ const Image = styled.img`
     left: calc(50% + 230px);
     width: 892px;
     z-index: ${(props) => props.index};
-    /* z-index: 3; */
-    /* top: calc(50% + 69px);
-    left: calc(50% + 230px);
-    width: 870px; */
   }
 
   &.fog-6 {
@@ -169,10 +161,6 @@ const Image = styled.img`
     left: calc(50% + 10px);
     width: 1610px;
     z-index: ${(props) => props.index};
-    /* z-index: 16; */
-    /* top: calc(50% + 177px);
-    left: calc(50% - 30px);
-    width: 1418px; */
   }
 
   &.mountain-9 {
@@ -180,10 +168,6 @@ const Image = styled.img`
     left: calc(50% - 457px);
     width: 470px;
     z-index: ${(props) => props.index};
-    /* z-index: 5; */
-    /* top: calc(50% + 119px);
-    left: calc(50% - 457px);
-    width: 463px; */
   }
 
   &.mountain-8 {
@@ -191,10 +175,6 @@ const Image = styled.img`
     left: calc(50% - 202px);
     width: 810px;
     z-index: ${(props) => props.index};
-    /* z-index: 6; */
-    /* top: calc(50% + 96px);
-    left: calc(50% - 202px);
-    width: 786px; */
   }
 
   &.fog-5 {
@@ -202,10 +182,6 @@ const Image = styled.img`
     left: calc(50% + 20px);
     width: 450px;
     z-index: ${(props) => props.index};
-    /* z-index: 13; */
-    /* top: calc(50% + 149px);
-    left: calc(50% - 28px);
-    width: 1435px; */
   }
 
   &.mountain-7 {
@@ -213,10 +189,6 @@ const Image = styled.img`
     left: calc(50% + 305px);
     width: 538px;
     z-index: ${(props) => props.index};
-    /* z-index: 8; */
-    /* top: calc(50% + 134px);
-    left: calc(50% + 305px);
-    width: 515px; */
   }
 
   /***************************  TOP IMAGES  ***************************/
@@ -225,10 +197,6 @@ const Image = styled.img`
     left: calc(50% + 590px);
     width: 383.5px;
     z-index: ${(props) => props.index};
-    /* z-index: 10; */
-    /* top: calc(50% + 86.5px);
-    left: calc(50% + 590px);
-    width: 383.5px; */
   }
 
   &.fog-4 {
@@ -236,10 +204,6 @@ const Image = styled.img`
     left: calc(50% - 64px);
     width: 543px;
     z-index: ${(props) => props.index};
-    /* z-index: 11; */
-    /* top: calc(50% + 242px);
-    left: calc(50% - 64px);
-    width: 543px; */
   }
 
   &.mountain-5 {
@@ -247,10 +211,6 @@ const Image = styled.img`
     left: calc(50% + 130px);
     width: 583px;
     z-index: ${(props) => props.index};
-    /* z-index: 12; */
-    /* top: calc(50% + 269px);
-    left: calc(50% + 130px);
-    width: 583px; */
   }
 
   &.fog-3 {
@@ -258,10 +218,6 @@ const Image = styled.img`
     left: calc(50% + 171px);
     width: 449px;
     z-index: ${(props) => props.index};
-    /* z-index: 7; */
-    /* top: calc(50% + 171px);
-    left: calc(50% + 29px);
-    width: 449px; */
   }
 
   &.mountain-4 {
@@ -269,10 +225,6 @@ const Image = styled.img`
     left: calc(50% - 381.5px);
     width: 717px;
     z-index: ${(props) => props.index};
-    /* z-index: 14; */
-    /* top: calc(50% + 221px);
-    left: calc(50% - 381.5px);
-    width: 717px; */
   }
 
   &.mountain-3 {
@@ -280,10 +232,6 @@ const Image = styled.img`
     left: calc(50% + 736px);
     width: 419px;
     z-index: ${(props) => props.index};
-    /* z-index: 15;
-    top: calc(50% + 133px);
-    left: calc(50% + 736px);
-    width: 419px; */
   }
 
   &.fog-2 {
@@ -291,10 +239,6 @@ const Image = styled.img`
     left: calc(50% + 7px);
     width: 1833px;
     z-index: ${(props) => props.index};
-    /* z-index: 4;
-    top: calc(50% + 95px);
-    left: calc(50% + 7px);
-    width: 1833px; */
   }
 
   &.mountain-2 {
@@ -302,10 +246,6 @@ const Image = styled.img`
     left: calc(50% + 412px);
     width: 625px;
     z-index: ${(props) => props.index};
-    /* z-index: 17;
-    top: calc(50% + 188px);
-    left: calc(50% + 412px);
-    width: 625px; */
   }
 
   &.mountain-1 {
@@ -313,10 +253,6 @@ const Image = styled.img`
     left: calc(50% - 601px);
     width: 450px;
     z-index: ${(props) => props.index};
-    /* z-index: 18;
-    top: calc(50% + 91.5px);
-    left: calc(50% - 601px);
-    width: 450px; */
   }
 
   &.sun-rays {
@@ -338,15 +274,10 @@ const Image = styled.img`
     left: 50%;
     width: 1600px;
     z-index: ${(props) => props.index};
-    /* z-index: 2;
-    top: calc(50% - 100px);
-    left: calc(50% + 300px);
-    width: 1900px; */
   }
 `;
 
 const TextContainer = styled.div`
-  z-index: ${(props) => props.index};
   position: absolute;
   top: calc(50% - 130px);
   left: 50%;
@@ -356,6 +287,7 @@ const TextContainer = styled.div`
   color: #fff;
   line-height: 0.88;
   pointer-events: all;
+  z-index: ${(props) => props.index};
 
   h2 {
     font-weight: 100;
