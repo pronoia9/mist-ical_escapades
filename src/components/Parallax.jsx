@@ -37,7 +37,7 @@ export default function Parallax() {
   // FUNCTION TO UPDATE PARALLAX TRANSFORMS ACCORDING TO STATE VARIABLES
   function update(xValue, yValue, rotateDegree, cursorPosition) {
     if (refsArr.current.length) {
-      refsArr.current.forEach((el) => {
+      refsArr.current.filter((e) => e.dataset.speedx).forEach((el) => {
         let speedx = el.dataset.speedx,
           speedy = el.dataset.speedy,
           speedz = el.dataset.speedz * 0.1;
@@ -57,9 +57,7 @@ export default function Parallax() {
   }
 
   // FLATTEN TO GET RID OF EMPTY [] (eg: sun-rays, black-shadow are in the middle of the array but arent here)
-  useEffect(() => {
-    refsArr.current = refsArr.current.flat();
-  }, [refsArr]);
+  useEffect(() => { refsArr.current = refsArr.current.flat(); }, [refsArr]);
 
   // GSAP ANIMATION
   useLayoutEffect(() => {
@@ -85,14 +83,14 @@ export default function Parallax() {
           ref={(ref) => (refsArr.current[index] = ref)}
           key={title}
           src={image}
-          index={index + 1}
+          index={index}
           className={`parallax ${title}`}
           {...options}
         />
       ))}
 
       {/* Title */}
-      <TextContainer ref={(ref) => (refsArr.current[bottom.length] = ref)} className='parallax text' index={bottom.length + 1} {...parallaxText}>
+      <TextContainer ref={(ref) => (refsArr.current[bottom.length] = ref)} className='parallax text' index={bottom.length} {...parallaxText}>
         <h2>Mist-ical</h2>
         <h1>Escapades</h1>
       </TextContainer>
