@@ -72,6 +72,7 @@ const Container = styled.main`
 const Image = styled.img`
   &.parallax {
     transform: translate(-50%, -50%);
+    transition: all 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99);
   }
 
   /**************************  BOTTOM IMAGES  *************************/
