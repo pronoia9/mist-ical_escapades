@@ -13,9 +13,18 @@ export default function Parallax() {
 
     const parallax_el = document.querySelectorAll('.parallax');
     parallax_el.forEach((el) => {
-      let speedx = el.dataset.speedx,
-        speedy = el.dataset.speedy;
-      el.style.transform = `translateX(calc(-50% + ${-xValue * speedx}px)) translateY(calc(-50% + ${yValue * speedy}px))`;
+      let xStrength = el.dataset.speedx,
+        yStrength = el.dataset.speedy;
+      
+      let zValue = e.clientX - parseFloat(getComputedStyle(el).left),
+        leftOrRightSign = parseFloat(getComputedStyle(el).left) < window.innerWidth / 2 ? 1 : -1,
+        zStrength = el.dataset.speedz;
+      
+      el.style.transform = `
+       translateX(calc(-50% + ${-xValue * xStrength}px))
+       translateY(calc(-50% + ${yValue * yStrength}px))
+       perspective(2300px)
+       translateZ(${zValue * leftOrRightSign * zStrength}px)`;
     });
   };
 
@@ -35,7 +44,7 @@ export default function Parallax() {
       ))}
 
       {/* Title */}
-      <TextContainer className='parallax' index={bottom.length + 1} data-speedx={0.07} data-speedy={0.07}>
+      <TextContainer className='parallax' index={bottom.length + 1} data-speedx={0.07} data-speedy={0.07} data-speedz={0}>
         <h2>Mist-ical</h2>
         <h1>Escapades</h1>
       </TextContainer>
