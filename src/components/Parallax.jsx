@@ -10,6 +10,7 @@ export default function Parallax() {
   const handleMouseMove = (e) => {
     let xValue = e.clientX - window.innerWidth / 2,
       yValue = e.clientY - window.innerHeight / 2;
+    let rotateDegree = (xValue / window.innerWidth / 2) * 20;
 
     const parallax_el = document.querySelectorAll('.parallax');
     parallax_el.forEach((el) => {
@@ -21,10 +22,11 @@ export default function Parallax() {
         zStrength = el.dataset.speedz;
       
       el.style.transform = `
-       translateX(calc(-50% + ${-xValue * xStrength}px))
-       translateY(calc(-50% + ${yValue * yStrength}px))
-       perspective(2300px)
-       translateZ(${zValue * leftOrRightSign * zStrength}px)`;
+      translateX(calc(-50% + ${-xValue * xStrength}px))
+      translateY(calc(-50% + ${yValue * yStrength}px))
+      perspective(2300px)
+      translateZ(${zValue * leftOrRightSign * zStrength}px)
+      rotateY(${rotateDegree}deg)`;
     });
   };
 
@@ -39,8 +41,8 @@ export default function Parallax() {
   return (
     <Container>
       {/* Behind the text */}
-      {bottom.map(({ title, image, parallax, speed }, index) => (
-        <Image key={title} className={`${parallax ? 'parallax ' : ''}${title}`} src={image} index={index + 1} {...speed} />
+      {bottom.map(({ title, image, parallax, options }, index) => (
+        <Image key={title} className={`${parallax ? 'parallax ' : ''}${title}`} src={image} index={index + 1} {...options} />
       ))}
 
       {/* Title */}
@@ -50,8 +52,8 @@ export default function Parallax() {
       </TextContainer>
 
       {/* On top of the title */}
-      {top.map(({ title, image, parallax, speed }, index) => (
-        <Image key={title} className={`${parallax ? 'parallax ' : ''}${title}`} src={image} index={bottom.length + 1 + index + 1} {...speed} />
+      {top.map(({ title, image, parallax, options }, index) => (
+        <Image key={title} className={`${parallax ? 'parallax ' : ''}${title}`} src={image} index={bottom.length + 1 + index + 1} {...options} />
       ))}
 
       {/* Effect(s) */}
