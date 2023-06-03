@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 
 import { parallaxImages, parallaxText } from '../utils/data';
 
@@ -42,6 +41,19 @@ export default function Parallax() {
     update(xValue, yValue, rotationDegree, cursorPosition);
   }, [xValue, yValue, rotationDegree, cursorPosition]);
 
+  // GSAP ANIMATION (TEST)
+  useEffect(() => {
+    if (parallaxRefs.current.length === top.length + 1 + bottom.length - 2) {
+      console.log('AAASDASDASDADASDASDASDASDASDASDASDASDASDASDASFASGFDHFK;DFGKSDLFJSDLKFGJSHKLGJSLDK;F');
+      let timeline = gsap.timeline();
+      console.log(timeline);
+      timeline.from('.bg-img', {top: 0})
+      parallaxRefs.current.forEach((el) => {
+        // 
+      });
+    }
+  }, []);
+
   // Function for updating the transforms
   function update(xValue, yValue, rotateDegree, cursorPosition) {
     if (parallaxRefs.current.length) {
@@ -75,9 +87,6 @@ export default function Parallax() {
           index={index + 1}
           className={`parallax ${title}`}
           {...options}
-          initial={{}}
-          animate={{}}
-          exit={{}}
         />
       ))}
 
@@ -96,9 +105,6 @@ export default function Parallax() {
           className={`${parallax ? 'parallax ' : ''}${title}`}
           index={bottom.length + 1 + index}
           {...options}
-          initial={{}}
-          animate={{}}
-          exit={{}}
         />
       ))}
 
@@ -134,7 +140,7 @@ const Container = styled.main`
   }
 `;
 
-const Image = styled(motion.img)`
+const Image = styled.img`
   /**************************  BOTTOM IMAGES  *************************/
   &.bg-img {
     top: calc(50% - 390px);
@@ -346,7 +352,7 @@ const Image = styled(motion.img)`
   }
 `;
 
-const TextContainer = styled(motion.div)`
+const TextContainer = styled.div`
   z-index: ${(props) => props.index};
   position: absolute;
   top: calc(50% - 130px);
